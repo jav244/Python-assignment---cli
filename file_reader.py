@@ -26,16 +26,13 @@ class FileReader:
 
     def data_splitter(self, data_set):
         lines = re.split(",|/|\s", data_set)
-        data_dic = {'Empid': None, 'Gender': None, 'Age': None, 'Sales': None, 'BMI': None, 'Salary': None,
-                    'Birthday': None}
-
-        data_dic['Empid'] = lines[0]
-        data_dic['Gender'] = lines[1]
-        data_dic['Age'] = lines[2]
-        data_dic['Sales'] = lines[3]
-        data_dic['BMI'] = lines[4]
-        data_dic['Salary'] = lines[5]
-        data_dic['Birthday'] = lines[6]
+        data_dic = {'Empid': lines[0],
+                    'Gender':lines[1],
+                    'Age': lines[2],
+                    'Sales': lines[3],
+                    'BMI': lines[4],
+                    'Salary': lines[5],
+                    'Birthday': lines[6]}
 
         # self.data_validate(data_dic)
         self.full_data_dics.append(data_dic)
@@ -47,16 +44,13 @@ class FileReader:
                 self.data_splitter_csv(row)
 
     def data_splitter_csv(self, row):
-        data_dic = {'Empid': None, 'Gender': None, 'Age': None, 'Sales': None, 'BMI': None, 'Salary': None,
-                    'Birthday': None}
-
-        data_dic['Empid'] = row['Empid']
-        data_dic['Gender'] = row['Gender']
-        data_dic['Age'] = row['Age']
-        data_dic['Sales'] = row['Sales']
-        data_dic['BMI'] = row['BMI']
-        data_dic['Salary'] = row['Salary']
-        data_dic['Birthday'] = row['Birthday']
+        data_dic = {'Empid': row['Empid'],
+                    'Gender': row['Gender'],
+                    'Age': row['Age'],
+                    'Sales': row['Sales'],
+                    'BMI': row['BMI'],
+                    'Salary': row['Salary'],
+                    'Birthday': row['Birthday']}
 
         # self.data_validate(data_dic)
         self.full_data_dics.append(data_dic)
