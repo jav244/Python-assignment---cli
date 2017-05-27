@@ -1,0 +1,45 @@
+name:
+prints the name of the current user
+        if name has no been set will be 'unknown'
+
+        :param name: set name by entering the command with name following
+                        e.g name jacob
+
+display:
+display either a piechart showing the 'gender ratio', or barchart showing the 'salary vs sales' of each employee
+
+        :param flag: pie: shows piechart
+                     bar: shows barchart
+
+file:
+input a file to display data in the file, and see what data is valid and invalid
+
+        any invalid data drops the whole line
+
+        can take input from txt or csv file
+
+        :param file: input the file name following the command
+                        e.g file data.txt
+                        e.g file data.csv
+
+db
+database interaction
+        can insert from txt or csv files
+        any rows with invalid data will drop the whole row
+        use file command to find invalid data
+
+        db[-flag]
+
+        :param flag: -i: select a txt or csv file to insert into the database
+                     -d: select fields to display from the database, seperate fields with a coma
+                            e.g empid, age, gender
+
+                            available fields to view are:
+                            empid, gender, age, sales, bmi, salary, birthday
+                            or type 'all' to view all fields
+
+pickle
+pickle[-flag]
+
+        :param flag: -c: create a new pickle dataset
+                     -o: open and view an existing pickle dataset
