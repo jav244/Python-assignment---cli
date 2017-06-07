@@ -1,10 +1,11 @@
+from data_visualiser import *
+
 # large class -- bad smell 3
 class Controller:
     database_got_data = False
 
-    def __init__(self, view, data_vis, validator, format, pickle, db):
+    def __init__(self, view, validator, format, pickle, db):
         self.view = view
-        self.data_vis = data_vis
         self.validator = validator
         self.format = format
         self.pickle = pickle
@@ -25,32 +26,16 @@ class Controller:
     # bad smell switch statement
     def display(self, flag):
         try:
+            #self.data_vis.run_this(flag, self.db)
+
             if flag == "pie":
-                male = self.db.count_query("gender", "M")
-                female = self.db.count_query("gender", "F")
-
-                male = self.format.clean(male)
-                female = self.format.clean(female)
-
-                self.data_vis.pie_gender(female, male)
-                return
-
-            if flag == "bar":
-                salary = self.database_query("salary")
-                sales = self.database_query("sales")
-                empid = self.database_query("empid")
-
-                salary = self.format.clean(salary)
-                sales = self.format.clean(sales)
-                empid = self.format.clean(empid)
-
-                self.data_vis.bar_salary(salary, sales, empid)
-                return
+                DataVisualiser(BuildPieChart(self.db)).construct()
+            elif flag == "bar":
+                DataVisualiser(BuildBarChart(self.db)).construct()
             else:
-                self.view.say("not a valid flag")
-
+                print("not a valid flag")
         except Exception as e:
-            print(e)
+            self.view.say(e)
 
     # unused function that i never took out, used to use it
     def database(self):  # pragma: no cover
