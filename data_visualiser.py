@@ -17,6 +17,9 @@ class DataVisualiser:
 
 
 class AbstractChartBuilder(metaclass=ABCMeta):
+    def __init__(self):
+        self.chart = None
+
     @abstractmethod
     def get_data(self):
         pass
@@ -33,14 +36,13 @@ class AbstractChartBuilder(metaclass=ABCMeta):
     def input_data(self):
         pass
 
-    @abstractmethod
     def render(self):
-        pass
+        self.chart.render_in_browser()
 
 
 class BuildBarChart(AbstractChartBuilder):
     def __init__(self, database):
-        self.bar_chart = pygal.Bar(x_title='Employee ID\'s', y_title='the Dollars')
+        self.chart = pygal.Bar()
         self.db = database
 
     def get_data(self):
@@ -55,22 +57,22 @@ class BuildBarChart(AbstractChartBuilder):
         self.empid = form.clean(empid)
 
     def label_title(self):
-        self.bar_chart.title='Sales vs Salary'
+        self.chart.title = 'Sales vs Salary'
+        self.chart.x_title = 'Employee ID\'s'
+        self.chart.y_title = 'the Dollars'
 
     def label_axis(self):
-        self.bar_chart.x_labels = map(str, self.empid)
+        self.chart.x_labels = map(str, self.empid)
 
     def input_data(self):
-        self.bar_chart.add("salary", self.salary)
-        self.bar_chart.add("sales", self.sales)
+        self.chart.add("salary", self.salary)
+        self.chart.add("sales", self.sales)
 
-    def render(self):
-        self.bar_chart.render_in_browser()
 
 
 class BuildPieChart(AbstractChartBuilder):
     def __init__(self, database):
-        self.pie_chart = pygal.Pie(inner_radius=.2)
+        self.chart = pygal.Pie(inner_radius=.2)
         self.db = database
 
     def get_data(self):
@@ -83,16 +85,14 @@ class BuildPieChart(AbstractChartBuilder):
         self.female = form.clean(female)
 
     def label_title(self):
-        self.pie_chart.title = 'Gender ratio'
+        self.chart.title = 'Gender ratio'
 
     def label_axis(self):
         pass
 
     def input_data(self):
-        self.pie_chart.add('female', self.female)
-        self.pie_chart.add('male', self.male)
+        self.chart.add('female', self.female)
+        self.chart.add('male', self.male)
 
-    def render(self):
-        self.pie_chart.render_in_browser()
 
 
